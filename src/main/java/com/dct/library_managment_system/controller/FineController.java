@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/fine")
 public class FineController {
 
     private final FineService fineService;
@@ -17,17 +18,17 @@ public class FineController {
         this.fineService = fineService;
     }
 
-    @GetMapping("/fine")
+    @GetMapping("/")
     public ResponseEntity<List<Fine>> fetchAllFine() {
         return ResponseEntity.ok(fineService.fetchAllFine());
     }
 
-    @GetMapping("/fine/id")
+    @GetMapping("/id")
     public ResponseEntity<Fine> fetchFineById(@RequestParam long id) {
         return ResponseEntity.ok(fineService.fetchFineById(id));
     }
 
-    @PutMapping("/fine/pay/id")
+    @PutMapping("/pay/id")
     public ResponseEntity<Fine> finePaid(@RequestParam long id,
                                          @RequestBody FinePaidRequest request) {
         return ResponseEntity.ok(fineService.paidFine(id, request.getPayment()));

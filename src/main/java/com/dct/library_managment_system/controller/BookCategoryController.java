@@ -6,9 +6,11 @@ import com.dct.library_managment_system.service.BookCategoryService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/book")
 public class BookCategoryController {
 
     private final BookCategoryService bookService;
@@ -17,7 +19,7 @@ public class BookCategoryController {
         this.bookService = bookCategoryService;
     }
 
-    @PostMapping("/book/add")
+    @PostMapping("/add")
     public ResponseEntity<Books> addBook(@RequestBody BookRequest bookRequest) {
         Books savedBook = bookService.addBookWithCategories(
                 bookRequest.getBook(),
