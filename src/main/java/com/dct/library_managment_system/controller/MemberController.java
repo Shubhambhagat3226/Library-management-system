@@ -2,6 +2,7 @@ package com.dct.library_managment_system.controller;
 
 import com.dct.library_managment_system.entity.Members;
 import com.dct.library_managment_system.service.MemberService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/members")
+@Tag(name = "Member API")
 public class MemberController {
 
     private final MemberService memberService;

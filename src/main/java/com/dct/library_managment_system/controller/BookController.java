@@ -2,6 +2,7 @@ package com.dct.library_managment_system.controller;
 
 import com.dct.library_managment_system.entity.Books;
 import com.dct.library_managment_system.service.BookService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/books")
+@Tag(name = "Books API")
 public class BookController {
 
     private final BookService bookService;
