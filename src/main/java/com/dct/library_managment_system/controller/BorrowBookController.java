@@ -1,4 +1,4 @@
-package com.dct.library_managment_system.contoller;
+package com.dct.library_managment_system.controller;
 
 import com.dct.library_managment_system.dto.BorrowRequest;
 import com.dct.library_managment_system.entity.BorrowBook;

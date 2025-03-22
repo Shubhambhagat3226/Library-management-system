@@ -14,6 +14,7 @@ import com.dct.library_managment_system.repository.MembersRepository;
 import com.dct.library_managment_system.service.BorrowBookService;
 import com.dct.library_managment_system.service.FineService;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -28,6 +29,8 @@ public class BorrowBookServiceImpl implements BorrowBookService {
     private final BorrowBookRepository borrowBookRepo;
 
     private final FineService fineService;
+    @Value("${library.fine.rate-per-day}")
+    private int fineRatePerDay;
 
     public BorrowBookServiceImpl(BooksRepository booksRep, MembersRepository membersRepo, BorrowBookRepository borrowBookRepo, FineService fineService) {
         this.booksRepo = booksRep;
@@ -101,7 +104,7 @@ public class BorrowBookServiceImpl implements BorrowBookService {
                 Period remainingDays = Period.between(borrow.getReturnDate(), borrow.getDueDate());
                 if (remainingDays.isNegative()) {
                     int days = Math.abs(remainingDays.getDays());
-                    int fineAmount = days * 10;
+                    int fineAmount = days * fineRatePerDay;
                     Fine fine = fineService.createFine(borrow, fineAmount);
                     borrow.setFine(fine);
                 }

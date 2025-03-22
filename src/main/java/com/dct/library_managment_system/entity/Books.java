@@ -3,6 +3,7 @@ package com.dct.library_managment_system.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -53,6 +54,7 @@ public class Books {
     )
     private String isbn;
 
+    @PastOrPresent(message = "Publish year cannot be in the future")
     @Column(
             name = "publish_year"
     )
