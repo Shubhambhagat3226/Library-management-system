@@ -31,8 +31,9 @@ public class BookCategoryServiceImpl implements BookCategoryService {
                     Category category = categoryRepository.findByNameIgnoreCase(name);
                     if (category == null) {
                         // Optionally create the category if it doesn't exist
-                        category = new Category();
-                        category.setName(name);
+                        category = Category.builder()
+                                .name(name)
+                                .build();
                         category = categoryRepository.save(category);
                     }
                     return category;

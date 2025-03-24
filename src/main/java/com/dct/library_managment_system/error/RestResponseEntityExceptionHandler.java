@@ -37,7 +37,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     @ExceptionHandler(BookNotFound.class)
     public ResponseEntity<Object> bookNotFound(BookNotFound error, WebRequest request) {
         Map<String , String> errMessage = new HashMap<>();
-        errMessage.put("error", error.getMessage());
+        errMessage.put("Error", error.getMessage());
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(errMessage);
@@ -46,7 +46,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     @ExceptionHandler(MemberNotFound.class)
     public ResponseEntity<Object> MemberNotFound(MemberNotFound error, WebRequest request) {
         Map<String , String> errMessage = new HashMap<>();
-        errMessage.put("error", error.getMessage());
+        errMessage.put("Error", error.getMessage());
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(errMessage);
@@ -55,7 +55,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     @ExceptionHandler(BorrowBookRecordNotFound.class)
     public ResponseEntity<Object> borrowBookNotFound(BorrowBookRecordNotFound error, WebRequest request) {
         Map<String , String> errMessage = new HashMap<>();
-        errMessage.put("error", error.getMessage());
+        errMessage.put("Error", error.getMessage());
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(errMessage);
@@ -64,7 +64,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     @ExceptionHandler(FineNotFound.class)
     public ResponseEntity<Object> fineErrorOrMessage(FineNotFound error, WebRequest request) {
         Map<String , String> errMessage = new HashMap<>();
-        errMessage.put("error", error.getMessage());
+        errMessage.put("Error", error.getMessage());
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(errMessage);
@@ -73,7 +73,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<Object> illegalArgumentException(IllegalArgumentException error) {
         Map<String , String> errMessage = new HashMap<>();
-        errMessage.put("error", error.getMessage());
+        errMessage.put("Error", error.getMessage());
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(errMessage);

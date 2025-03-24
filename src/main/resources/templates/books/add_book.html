@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Add New Book</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<h1>Add New Book</h1>
+<form action="#" th:action="@{/books/add}" th:object="${book}" method="post">
+    <label for="title">Title:</label>
+    <input type="text" id="title" th:field="*{title}" /><br />
+    <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span><br />
+
+    <label for="author">Author:</label>
+    <input type="text" id="author" th:field="*{author}" /><br />
+    <span th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></span><br />
+
+    <label for="isbn">ISBN:</label>
+    <input type="text" id="isbn" th:field="*{isbn}" /><br />
+    <span th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}"></span><br />
+
+    <label for="publishYear">Publish Year:</label>
+    <input type="date" id="publishYear" th:field="*{publishYear}" /><br />
+    <span th:if="${#fields.hasErrors('publishYear')}" th:errors="*{publishYear}"></span><br />
+
+    <label for="description">Description:</label>
+    <textarea id="description" th:field="*{description}"></textarea><br />
+
+    <label for="totalCopies">Total Copies:</label>
+    <input type="number" id="totalCopies" th:field="*{totalCopies}" /><br />
+    <span th:if="${#fields.hasErrors('totalCopies')}" th:errors="*{totalCopies}"></span><br />
+
+    <label for="availableCopies">Available Copies:</label>
+    <input type="number" id="availableCopies" th:field="*{availableCopies}" /><br />
+    <span th:if="${#fields.hasErrors('availableCopies')}" th:errors="*{availableCopies}"></span><br />
+
+    <label for="shelfNumber">Shelf Number:</label>
+    <input type="number" id="shelfNumber" th:field="*{shelfNumber}" /><br />
+
+    <input type="submit" value="Submit" />
+</form>
+<a th:href="@{/books/}">Back to Book List</a>
+</body>
+</html>
