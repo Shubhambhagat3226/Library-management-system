@@ -2,17 +2,16 @@ package com.dct.library_managment_system.controller;
 
 import com.dct.library_managment_system.entity.Books;
 import com.dct.library_managment_system.service.BookService;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/books")
-@Tag(name = "Books API")
 public class BookController {
 
     private final BookService bookService;
@@ -21,41 +20,57 @@ public class BookController {
         this.bookService = bookService;
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<Books> createBook(@Valid @RequestBody Books book) {
-        Books savedBook = bookService.addBook(book);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedBook);
-    }
-
     @GetMapping("/")
-    public ResponseEntity<List<Books>> fetchAllBook() {
-        return ResponseEntity.ok(bookService.fetchAllBooks());
+    public String fetchAllBooks(Model model) {
+        List<Books> books = bookService.fetchAllBooks();
+        model.addAttribute("books", books);
+        return "books/book_list";
     }
 
-    @GetMapping("/isbn")
-    public ResponseEntity<Books> fetchBookByIsbn(@RequestParam String isbn) {
-        return ResponseEntity.ok(bookService.fetchBookByIsbn(isbn));
+    @GetMapping("/add")
+    public String showAddBookForm(Model model) {
+        model.addAttribute("book", new Books());
+        return "books/add_book";
     }
 
-    @GetMapping("/title")
-    public ResponseEntity<List<Books>> fetchBookByName(@RequestParam String title) {
-        return ResponseEntity.ok(bookService.fetchBookByTitle(title));
+    @PostMapping("/add")
+    public String createBook(@Valid @ModelAttribute("book") Books book, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "books/add_book";
+        }
+        bookService.addBook(book);
+        return "redirect:/books/";
     }
 
-    @DeleteMapping("/id")
-    public ResponseEntity<String> deleteBookById(@RequestParam long id) {
-        if (bookService.deleteBookById(id)) {
-            return ResponseEntity.status(HttpStatus.OK).body("Delete successfully");
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Book id is invalid");
+    @GetMapping("/edit/{id}")
+    public String showEditBookForm(@PathVariable("id") Long id, Model model) {
+        try {
+            Books book = bookService.fetchBookById(id);
+            model.addAttribute("book", book);
+            return "books/edit_book";
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "error";
         }
     }
 
-    @PutMapping("/id")
-    public ResponseEntity<Books> updateBookById(@RequestParam long id,
-                                                @RequestBody Books book) {
-        Books b = bookService.updateBookById(id, book);
-        return ResponseEntity.status(HttpStatus.OK).body(b);
+    @PostMapping("/update/{id}")
+    public String updateBook(@PathVariable("id") Long id, @Valid @ModelAttribute("book") Books book, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "books/edit_book";
+        }
+        try {
+            bookService.updateBookById(id, book);
+            return "redirect:/books/";
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "books/edit_book";
+        }
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteBook(@PathVariable("id") Long id) {
+        bookService.deleteBookById(id);
+        return "redirect:/books/";
     }
 }
-

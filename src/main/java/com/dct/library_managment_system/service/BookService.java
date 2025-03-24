@@ -17,5 +17,7 @@ public interface BookService {
     boolean deleteBookById(long id);
 
     Books updateBookById(long id, Books book);
+
+    Books fetchBookById(Long id);
 }
 

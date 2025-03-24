@@ -2,6 +2,7 @@ package com.dct.library_managment_system.service.impl;
 
 import com.dct.library_managment_system.entity.Books;
 import com.dct.library_managment_system.error.BookNotFound;
+import com.dct.library_managment_system.error.BorrowBookRecordNotFound;
 import com.dct.library_managment_system.repository.BooksRepository;
 import com.dct.library_managment_system.service.BookService;
 import jakarta.validation.Valid;
@@ -120,6 +121,11 @@ public class BookServiceImpl implements BookService {
 
         return bookRepository.save(book);
 
+    }
+
+    @Override
+    public Books fetchBookById(Long id) {
+        return bookRepository.findById(id).orElseThrow(() -> new BookNotFound("Book not found"));
     }
 
     @Override

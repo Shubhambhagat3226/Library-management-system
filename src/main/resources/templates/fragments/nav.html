@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<nav class="nav-bar" th:fragment="navigation">
+    <a class="nav-brand" th:href="@{/}">Library</a>
+    <ul class="nav-links">
+        <li><a th:href="@{/books/}">Books</a></li>
+        <li><a th:href="@{/members/}">Members</a></li>
+        <li><a th:href="@{/borrow/}">Borrow Records</a></li>
+        <li><a th:href="@{/fines/}">Fines</a></li>
+    </ul>
+</nav>
+
+</body>
+</html>
