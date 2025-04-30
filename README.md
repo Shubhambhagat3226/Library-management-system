@@ -121,4 +121,4 @@ Contributions are welcome! If you'd like to contribute, please feel free to fork
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details (or choose an appropriate license if MIT isn't desired).
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
